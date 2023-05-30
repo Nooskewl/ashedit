@@ -1,0 +1,37 @@
+This documents describes the file format of AshEdit maps.
+
+Everything in the maps is little-endian, which means for multi-byte numbers,
+the least significant byte comes first.
+
+Listed below is the data in the maps in order it comes in the file.
+
+--
+
+1) 4 byte id which is always "ASH!"
+
+2) 16 bit level width (in tiles)
+
+3) 16 bit level height (in tiles)
+
+4) 1 byte number of layers
+
+5) width * height bytes walkable flag. 0 means walkable, anything else is solid.
+
+6) for each layer
+	for each row
+		for each column
+			1 byte flags:
+				- 1st (lowest) bit tells if the square is
+				  occupied or not. If this bit is 0, there was
+				  no tile placed on this square and the next 3
+				  bytes (below) are skipped
+			if flag bit 1 is non-zero:
+				- 1 byte x position of tile in tilemap
+				- 1 byte y position of tile in tilemap
+				- 1 byte tile sheet number
+
+--
+
+These areas theoretically support 65536x65536 tile maps with maximum sheet size
+of 256x256 tiles (tiles can be any size,) however the application limits maps to
+256x256 because maps larger than that use an enormous amount of memory.

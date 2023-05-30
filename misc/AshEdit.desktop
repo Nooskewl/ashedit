@@ -1,0 +1,14 @@
+# NOTE: Change the paths to match your setup.
+# Then copy to ~/.local/share/applications.
+
+[Desktop Entry]
+Encoding=UTF-8
+Value=1.0
+Type=Application
+Name=AshEdit
+GenericName=AshEdit
+Comment=AshEdit
+Icon=/home/FIXME/AshEdit/AshEdit.png
+Exec="/home/FIXME/AshEdit/AshEdit"
+Path=/home/FIXME/AshEdit
+

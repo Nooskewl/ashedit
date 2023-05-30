@@ -1,0 +1,22 @@
+Command line
+------------
+
+AshEdit.exe [options]
+
+Options can be:
+
+-tile_size <size>	Set tile size (default 16 except for Monster RPG 3
+                 	maps where it's 12)
+
+-tiles <path>		Set path to tiles
+-load <path>		Load this level
+
+
+Configuration files
+-------------------
+
+After running the app for the first time, it creates a configuration file
+which you can edit. The location is:
+
+On Windows:
+%APPDATA%\Nooskewl\AshEdit\config.txt

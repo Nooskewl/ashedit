@@ -1,0 +1,93 @@
+This documents describes the file formats of AshEdit maps. Everything in the maps is little-endian.
+
+For Wedge 2 maps:
+
+Everything in the maps is little-endian, which means for multi-byte numbers,
+the least significant byte comes first.
+
+Listed below is the data in the maps in order it comes in the file.
+
+--
+
+1) 4 byte id which is always "WM2!"
+
+2) 16 bit level width (in tiles)
+
+3) 16 bit level height (in tiles)
+
+4) 1 byte number of layers
+
+5) width * height bytes walkable flag. 0 means walkable/solid, anything else
+   is not solid.
+
+6) for each layer
+	for each row
+		for each column
+			1 byte flags:
+				- 1st (lowest) bit tells if the square is
+				  occupied or not. If this bit is 0, there was
+				  no tile placed on this square and the next 3
+				  bytes (below) are skipped
+			if flag bit 1 is non-zero:
+				- 1 byte x position of tile in tilemap
+				- 1 byte y position of tile in tilemap
+				- 1 byte tile sheet number
+
+--
+
+These areas support 65536x65536 tile maps with maximum sheet size of 256x256
+tiles (tiles can be any size.)
+
+-----
+
+For Monster RPG 3:
+
+16 bits width (in tiles)
+16 bits height (in tiles)
+1 byte number of layers
+
+for each layer
+	for each row
+		for each column
+			1 byte: x of tile in tilemap -- 255 if unoccupied
+			1 byte: y of tile in tilemap -- on layer 0, high bit is solid flag
+
+This format supports a maximum of 65536x65536 tile tilemaps, with a maximum
+sheet size of 255x127 tiles (any size tile is supported.)
+
+-----
+
+For Crystal Picnic:
+
+32 bits width (in tiles)
+32 bits height (in tiles)
+32 bits number of layers
+
+for each layer
+	for each row
+		for each column
+			32 bits: tile number
+				> (left->right, top->bottom in tile sheet)
+			8 bits: sheet number
+			8 bits: solid (1 or 0)
+
+
+-----
+
+For Monster RPG 2 (only one tile sheet is used):
+
+32 bits width (in tiles)
+32 bits height (in tiles)
+
+32 bits number of unique tiles used in this map
+
+for each unique tile used:
+	32 bits per tile used (tile number)
+		> (left->right, top->bottom in tile sheet)
+
+for each row
+	for each column
+		for each of 4 layers
+			32 bits: unique tile index
+				> (into previously written unique tiles used array)
+		1 byte: solid marker

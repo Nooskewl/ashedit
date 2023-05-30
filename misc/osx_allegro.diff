@@ -1,0 +1,164 @@
+--- tmp/allegro-5.2.5.0/addons/native_dialog/osx_dialog.m	2018-08-05 20:42:10.000000000 -0600
++++ allegro-5.2.5.0/addons/native_dialog/osx_dialog.m	2019-09-07 04:01:46.000000000 -0600
+@@ -1,6 +1,7 @@
+ #import <Cocoa/Cocoa.h>
+ #import <Availability.h>
+ #import <IOKit/hid/IOHIDLib.h>
++#import <AppKit/AppKit.h>
+ #include "allegro5/allegro.h"
+ #include "allegro5/allegro_native_dialog.h"
+ #include "allegro5/internal/aintern_native_dialog.h"
+@@ -9,6 +10,8 @@
+ 
+ bool _al_init_native_dialog_addon(void)
+ {
++[[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"NSDisabledDictationMenuItem"];
++[[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"NSDisabledCharacterPaletteMenuItem"];
+     return true;
+ }
+ 
+@@ -156,7 +159,16 @@
+     
+     NSArray* buttons = [button_text componentsSeparatedByString: @"|"];
+     [box setMessageText:[NSString stringWithUTF8String: al_cstr(fd->title)]];
+-    [box setInformativeText:[NSString stringWithUTF8String: al_cstr(fd->mb_text)]];
++
++    char tmp[2048];
++    if (strlen(al_cstr(fd->mb_text)) > 0 && strlen(al_cstr(fd->mb_heading)) > 0) {
++	    snprintf(tmp, 2048, "%s %s", al_cstr(fd->mb_heading), al_cstr(fd->mb_text));
++    }
++    else {
++	    snprintf(tmp, 2048, "%s", al_cstr(fd->mb_text));
++    }
++
++    [box setInformativeText:[NSString stringWithUTF8String: tmp]];
+     [box setAlertStyle: NSWarningAlertStyle];
+     for (i = 0; i < [buttons count]; ++i)
+         [box addButtonWithTitle: [buttons objectAtIndex: i]];
+@@ -393,15 +405,50 @@
+ /* Take a menu caption. If it has an accelerator char (preceeded by & or _)
+  * remove the & or _ from the string and return the char.
+  */
+-static NSString* extract_accelerator(NSMutableString* caption) {
+-    NSRange range = [caption rangeOfCharacterFromSet:[NSCharacterSet characterSetWithCharactersInString:@"&_"]];
+-    if (range.location != NSNotFound && range.location < [caption length]) {
+-        [caption deleteCharactersInRange:range];
+-        return [caption substringWithRange: range];
+-    } else {
+-        // Not found or you ended the string with & or _
+-        return @"";
+-    }
++static NSString* extract_accelerator(NSMutableString* caption, NSString **new_str) {
++	if (caption == NULL) {
++		*new_str = @"";
++		return @"";
++	}
++
++	const char *str = [caption UTF8String];
++
++	int sz = 0;
++
++	char accel[2] = { 0, };
++
++	for (int i = 0; str[i]; i++) {
++		if (str[i] == '&' || str[i] == '%' || str[i] == '^' || str[i] == '|' || str[i] == '~') {
++			if (str[i+1] != 0 && !(str[i+1] == '&' || str[i+1] == '%' || str[i+1] == '^' || str[i+1] == '|' || str[i+1] == '~')) {
++				accel[0] = tolower(str[i+1]);
++				accel[1] = 0;
++
++				if (str[i+2] == 0) {
++					break;
++				}
++			}
++
++			continue;
++		}
++		sz++;
++	}
++
++	char buf[sz+1];
++
++	int j = 0;
++	for (int i = 0; str[i] && j < sz; i++) {
++		if (str[i] == '&' || str[i] == '%' || str[i] == '^' || str[i] == '|' || str[i] == '~') {
++			continue;
++		}
++
++		buf[j++] = str[i];
++	}
++
++	buf[j] = 0;
++
++	*new_str = [NSString stringWithUTF8String:buf];
++
++	return [NSString stringWithUTF8String:accel];
+ }
+ 
+ bool _al_init_menu(ALLEGRO_MENU *amenu)
+@@ -468,6 +515,36 @@
+    return 0;
+ }
+ 
++NSEventModifierFlags get_mods(NSString *key)
++{
++	if (key == NULL) {
++		return 0;
++	}
++
++	const char *utf8 = [key UTF8String];
++	bool cmd = false;
++	bool ctrl = false;
++	bool alt = false;
++	bool shift = false;
++	if (strchr(utf8, '&')) {
++		cmd = true;
++	}
++	if (strchr(utf8, '%')) {
++		ctrl = true;
++	}
++	if (strchr(utf8, '^')) {
++		alt = true;
++	}
++	if (strchr(utf8, '|')) {
++		shift = true;
++	}
++	return
++		(cmd ? /*NSEventModifierFlagCommand*/(1 << 20) : 0) |
++		(ctrl ? /*NSEventModifierFlagControl*/(1 << 18) : 0) |
++		(alt ? /*NSEventModifierFlagOption*/(1 << 19) : 0) |
++		(shift ? /*NSEventModifierFlagShift*/(1 << 17) : 0);
++}
++
+ @implementation ALLEGMenuTarget
+ /* Initial conversion of ALLEGRO_MENU_ITEM to NSMenuItem.
+  * The target (self) is set for the item.
+@@ -478,10 +555,13 @@
+     NSMenuItem* item;
+     if (aitem->caption && al_ustr_length(aitem->caption) > 0) {
+         NSMutableString* title = [NSMutableString stringWithUTF8String:al_cstr(aitem->caption)];
+-        NSString* key = extract_accelerator(title);
+-        item = [[NSMenuItem alloc] initWithTitle:title
++	NSString *new_str = NULL;
++        NSString* key = extract_accelerator(title, &new_str);
++	NSEventModifierFlags f = get_mods(title);
++        item = [[NSMenuItem alloc] initWithTitle:new_str
+                                           action:@selector(activated:)
+                                    keyEquivalent:key];
++	item.keyEquivalentModifierMask = f;
+         [item setTarget:self];
+         aitem->extra1 = item;
+         return item;
+@@ -607,8 +687,11 @@
+     (void) index;
+     NSMenuItem* item = [self itemForAllegroItem:aitem];
+     NSMutableString* caption = [NSMutableString stringWithUTF8String:al_cstr(aitem->caption)];
+-    NSString* key = extract_accelerator(caption);
+-    [item setTitle:caption];
++    	NSString *new_str = NULL;
++        NSString* key = extract_accelerator(caption, &new_str);
++    NSEventModifierFlags f = get_mods(caption);
++    item.keyEquivalentModifierMask = f;
++    [item setTitle:new_str];
+     [item setKeyEquivalent:key];
+     [pool release];
+ }

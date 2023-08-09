@@ -19,17 +19,17 @@
 
 #ifdef ALLEGRO_UNIX
 #define ASSERT ALLEGRO_ASSERT
-#define X11_ATOM(x)  XInternAtom(display, #x, False);
+//#define X11_ATOM(x)  XInternAtom(display, #x, False);
 #include "allegro5/allegro.h"
-#include "allegro5/allegro_x.h"
-#include "allegro5/internal/aintern_x.h"
-#include "allegro5/internal/aintern_xdisplay.h"
-#include "allegro5/internal/aintern_xsystem.h"
-#include "allegro5/internal/aintern_xwindow.h"
+//#include "allegro5/allegro_x.h"
+//#include "allegro5/internal/aintern_x.h"
+//#include "allegro5/internal/aintern_xdisplay.h"
+//#include "allegro5/internal/aintern_xsystem.h"
+//#include "allegro5/internal/aintern_xwindow.h"
 
-#include <X11/Xlib.h>
-#include <X11/Xutil.h>
-#include <X11/Xatom.h>
+//#include <X11/Xlib.h>
+//#include <X11/Xutil.h>
+//#include <X11/Xatom.h>
 #endif
 
 #ifdef ALLEGRO_MACOSX
@@ -200,7 +200,7 @@ enum {
 #define EDIT_DELETE_ALL_TABS TWO_TABS
 #define EDIT_PASTE_TABS FIVE_TABS
 #define EDIT_SELECT_ALL_TABS FOUR_TABS
-#define EDIT_SELECT_NONE_TABS THREE_TABS
+#define EDIT_SELECT_NONE_TABS FOUR_TABS
 #define EDIT_INVERT_TABS THREE_TABS
 #define LAYER_BEFORE_TABS THREE_TABS
 #define LAYER_AFTER_TABS THREE_TABS
@@ -1999,13 +1999,10 @@ void add_to_recent(std::string fn, bool build, bool at_back)
 #include <gdk-pixbuf/gdk-pixbuf.h>
 #include <allegro5/debug.h>
 #define ASSERT ALLEGRO_ASSERT
-#include <allegro5/internal/aintern_xdisplay.h>
 
-// BIG HACK! copied from native dialog addon
-struct ALLEGRO_DISPLAY_XGLX_GTK {
-   GtkWidget *gtkwindow;
-   GtkWidget *gtksocket;
-};
+extern "C" {
+	GtkWidget *_al_gtk_get_window(ALLEGRO_DISPLAY *display);
+}
 
 void set_icon_linux(ALLEGRO_DISPLAY *display, ALLEGRO_BITMAP *bitmap)
 {
@@ -2096,7 +2093,7 @@ void set_icon_linux(ALLEGRO_DISPLAY *display, ALLEGRO_BITMAP *bitmap)
    al_unlock_bitmap(bitmap);
 
    GdkPixbuf *pixbuf = gdk_pixbuf_new_from_xpm_data((const char **)xpm);
-   GtkWindow *window = (GtkWindow *)((ALLEGRO_DISPLAY_XGLX *)display)->gtk->gtkwindow;
+   GtkWindow *window = (GtkWindow *)_al_gtk_get_window(display);
    gtk_window_set_icon(window, pixbuf);
 }
 #endif
@@ -2500,7 +2497,7 @@ int main(int argc, char **argv)
 	ALLEGRO_BITMAP *icon_bmp = al_load_bitmap_f(f, ".png");
 #ifndef __APPLE__
 #ifdef ALLEGRO_UNIX
-	GtkWindow *gtkwindow = (GtkWindow *)((ALLEGRO_DISPLAY_XGLX *)display)->gtk->gtkwindow;
+	GtkWindow *gtkwindow = (GtkWindow *)_al_gtk_get_window(display);
 	g_signal_connect (gtkwindow, "window-state-event", (GCallback) window_state_callback, NULL);
 	set_icon_linux(display, icon_bmp);
 #else

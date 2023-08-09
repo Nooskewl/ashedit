@@ -4870,7 +4870,7 @@ public:
 					General::tileSize = 16;
 				}
 			}
-			else if (ext == "ash") {
+			else if (ext == "wm2") {
 				ltype = WM2;
 				one_solids_layer = true;
 				General::can_add_and_delete_layers = true;
@@ -4952,7 +4952,7 @@ public:
 			int b3 = al_fgetc(f);
 			int b4 = al_fgetc(f);
 
-			if (b1 != 'A' || b2 != 'S' || b3 != 'H' || b4 != '!') {
+			if (b1 != 'W' || b2 != 'M' || b3 != '2' || b4 != '!') {
 				LOAD_ERROR("Not an AshEdit map!")
 			}
 
@@ -5250,7 +5250,7 @@ public:
 			level_type = dump_type;
 			std::string fake;
 			if (level_type == WM2) {
-				fake = "foo.ash";
+				fake = "foo.wm2";
 			}
 			else if (level_type == MO3) {
 				fake = "foo.map";
@@ -5262,7 +5262,7 @@ public:
 				fake = "area";
 			}
 			get_level_type(fake); // set some stuff
-			if (save(filename) == false) {
+			if (save(filename, dump_type) == false) {
 				al_show_native_message_box(display, "Save Error", "Invalid input!", "File could not be saved at this location!", 0, 0);
 			}
 			exit(0);
@@ -5329,9 +5329,9 @@ public:
 				return false;
 			}
 
-			al_fputc(f, 'A');
-			al_fputc(f, 'S');
-			al_fputc(f, 'H');
+			al_fputc(f, 'W');
+			al_fputc(f, 'M');
+			al_fputc(f, '2');
 			al_fputc(f, '!');
 
 			al_fwrite16le(f, (int16_t)tiles[0].size()); // width

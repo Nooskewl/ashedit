@@ -1,5 +1,5 @@
+cmake_minimum_required(VERSION 2.8.12)
 project(AshEdit)
-cmake_minimum_required(VERSION 2.6)
 
 option(SUPPORT_GROUPS "Support for groups (from MO3)" off)
 option(USE_STATIC_LIBRARIES "Build with static libraries" on)

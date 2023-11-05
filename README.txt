@@ -7,9 +7,6 @@ originally written for an unreleased game called Ashes Fall, hence the name.
 The levels it produces are in a very simple binary format that is easy to
 load. See FORMAT.txt.
 
-The file "area" in the binary distribution is an example area in Crystal
-Picnic format.
-
 
 License
 -------
@@ -50,4 +47,5 @@ put Allegro and TGUI2 if necessary.
 	msbuild /p:Configuration=Release AshEdit.sln # or use make
 	<run AshEdit.exe>
 
-On Windows it loads arial.ttf from C:\Windows\Fonts.
+On Windows it loads arial.ttf from C:\Windows\Fonts. On Linux it
+looks in the working directory for font.ttf.

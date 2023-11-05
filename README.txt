@@ -24,7 +24,8 @@ Using
 Tile sheets are named tiles0.png, tiles1.png, etc. TGA images are also
 supported. For Monster RPG 2 maps, only one tile sheet can be used.
 
-File type is determined by filename as so:
+File type is determined by filename if you run with
+-use-filename-based-level-types as so:
 
 .map	Monster RPG 3 maps
 area	This is the full filename of Crystal Picnic maps

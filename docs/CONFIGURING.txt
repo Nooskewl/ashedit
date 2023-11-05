@@ -11,6 +11,10 @@ Options can be:
 -tiles <path>		Set path to tiles
 -load <path>		Load this level
 
+-use-filename-based-level-types
+			Use the filename or extension to determine the
+			level type
+
 
 Configuration files
 -------------------
@@ -20,3 +24,6 @@ which you can edit. The location is:
 
 On Windows:
 %APPDATA%\Nooskewl\AshEdit\config.txt
+
+On Linux:
+~/.config/Nooskewl/AshEdit/config.txt

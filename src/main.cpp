@@ -1199,7 +1199,7 @@ static void levelDrawCallback(int ox, int oy, int dx, int dy, int w, int h, int 
 		//if (draw_groups[g.layer] && g.layer == levelEditor->getCurrentLayer()) {
 			ALLEGRO_COLOR colour;
 			colour = al_map_rgb(0, 255, 255);
-			al_draw_rectangle(savedx + (g.x * General::tileSize * General::scale) - ox, savedy + (g.y * General::tileSize * General::scale) - oy, savedx + ((g.x + g.w) * General::tileSize * General::scale) - ox, savedy + ((g.y + g.h) * General::tileSize * General::scale) - oy, colour, 1.0f);
+			al_draw_rectangle(savedx + (g.x * General::tileSize * General::scale) - ox, savedy + (g.y * General::tileSize * General::scale) - oy, savedx + ((g.x + g.w) * General::tileSize * General::scale) - ox, savedy + ((g.y + g.h) * General::tileSize * General::scale) - oy, colour, General::scale);
 		//}
 	}
 #endif

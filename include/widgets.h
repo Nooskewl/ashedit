@@ -2089,7 +2089,7 @@ public:
 	static const int TOOL_FILL = 6;
 	static const int TOOL_MARQUEE = 7;
 	static const int TOOL_MAGIC_WAND = 8;
-#ifdef SUPPORT_GROUPS
+#ifdef SUPPORT_WALLS
 	static const int TOOL_WALL = 9;
 #endif
 	static const int TOOL_RMB_FILL = 10;
@@ -2117,7 +2117,9 @@ public:
 	struct Group {
 		int type, layer, x, y, w, h;
 	};
+#endif
 
+#ifdef SUPPORT_WALLS
 	struct Wall {
 		int x, y, z;
 		int size_x, size_y, size_z;
@@ -2286,7 +2288,9 @@ public:
 	std::vector<Group> &getGroups() {
 		return groups;
 	}
+#endif
 
+#ifdef SUPPORT_WALLS
 	std::vector<Wall> &getWalls() {
 		return walls;
 	}
@@ -2566,7 +2570,9 @@ public:
 				g.h--;
 			}
 		}
+#endif
 
+#ifdef SUPPORT_WALLS
 		for (size_t j = 0; j < walls.size(); j++) {
 			Wall &w = walls[j];
 			if (w.y > i) {
@@ -2632,7 +2638,9 @@ public:
 				g.w--;
 			}
 		}
+#endif
 
+#ifdef SUPPORT_WALLS
 		for (size_t j = 0; j < walls.size(); j++) {
 			Wall &w = walls[j];
 			if (w.x > i) {
@@ -2682,7 +2690,9 @@ public:
 				g.h++;
 			}
 		}
+#endif
 
+#ifdef SUPPORT_WALLS
 		for (size_t j = 0; j < walls.size(); j++) {
 			Wall &w = walls[j];
 			if (w.y >= i) {
@@ -2734,7 +2744,9 @@ public:
 				g.w++;
 			}
 		}
+#endif
 
+#ifdef SUPPORT_WALLS
 		for (size_t j = 0; j < walls.size(); j++) {
 			Wall &w = walls[j];
 			if (w.x >= i) {
@@ -3225,6 +3237,8 @@ public:
 				changed = true;
 			}
 		}
+#endif
+#ifdef SUPPORT_WALLS
 		else if (level_type == MO3 && keycode == ALLEGRO_KEY_XXXFIXME) {
 			int found = -1;
 
@@ -3390,7 +3404,9 @@ public:
 #ifdef SUPPORT_GROUPS
 		groups = group_undoes.back();
 		group_undoes.pop_back();
+#endif
 
+#ifdef SUPPORT_WALLS
 		walls = wall_undoes.back();
 		wall_undoes.pop_back();
 #endif
@@ -3506,7 +3522,9 @@ public:
 #ifdef SUPPORT_GROUPS
 		groups = group_redoes.back();
 		group_redoes.pop_back();
+#endif
 
+#ifdef SUPPORT_WALLS
 		walls = wall_redoes.back();
 		wall_redoes.pop_back();
 #endif
@@ -3623,7 +3641,9 @@ public:
 		if (group_undoes.size() > MAX_UNDO) {
 			group_undoes.pop_front();
 		}
+#endif
 
+#ifdef SUPPORT_WALLS
 		wall_undoes.push_back(walls);
 		if (wall_undoes.size() > MAX_UNDO) {
 			wall_undoes.pop_front();
@@ -3718,7 +3738,9 @@ public:
 		if (group_redoes.size() > MAX_UNDO) {
 			group_redoes.pop_front();
 		}
+#endif
 
+#ifdef SUPPORT_WALLS
 		wall_redoes.push_back(walls);
 		if (wall_redoes.size() > MAX_UNDO) {
 			wall_redoes.pop_front();
@@ -3809,6 +3831,8 @@ public:
 		undoes.clear();
 #ifdef SUPPORT_GROUPS
 		group_undoes.clear();
+#endif
+#ifdef SUPPORT_WALLS
 		wall_undoes.clear();
 #endif
 		marquee_undoes.clear();
@@ -3839,6 +3863,8 @@ public:
 		redoes.clear();
 #ifdef SUPPORT_GROUPS
 		group_redoes.clear();
+#endif
+#ifdef SUPPORT_WALLS
 		wall_redoes.clear();
 #endif
 		marquee_redoes.clear();
@@ -4936,6 +4962,8 @@ public:
 	bool load(std::string filename) {
 #ifdef SUPPORT_GROUPS
 		groups.clear();
+#endif
+#ifdef SUPPORT_WALLS
 		walls.clear();
 #endif
 		const char *cFilename = filename.c_str();
@@ -5692,6 +5720,8 @@ public:
 	{
 #ifdef SUPPORT_GROUPS
 		groups.clear();
+#endif
+#ifdef SUPPORT_WALLS
 		walls.clear();
 #endif
 
@@ -6285,6 +6315,8 @@ protected:
 #ifdef SUPPORT_GROUPS
 	std::deque< std::vector<Group> > group_undoes;
 	std::deque< std::vector<Group> > group_redoes;
+#endif
+#ifdef SUPPORT_WALLS
 	std::deque< std::vector<Wall> > wall_undoes;
 	std::deque< std::vector<Wall> > wall_redoes;
 #endif
@@ -6332,7 +6364,8 @@ protected:
 #ifdef SUPPORT_GROUPS
 	std::vector<Group> groups;
 	int group_type;
-
+#endif
+#ifdef SUPPORT_WALLS
 	std::vector<Wall> walls;
 	int selected_wall;
 #endif

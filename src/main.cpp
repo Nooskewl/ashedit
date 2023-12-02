@@ -81,15 +81,38 @@ enum {
 	SCALE_10_ID,
 #ifdef SUPPORT_GROUPS
 	GROUP_TYPE_ID,
-	GROUP_OBJECT_ID,
-	GROUP_CHAIR_NORTH_ID,
-	GROUP_CHAIR_EAST_ID,
-	GROUP_CHAIR_SOUTH_ID,
-	GROUP_CHAIR_WEST_ID,
-	GROUP_BED_NORTH_ID,
-	GROUP_BED_EAST_ID,
-	GROUP_BED_SOUTH_ID,
-	GROUP_BED_WEST_ID,
+	GROUP_1_ID,
+	GROUP_2_ID,
+	GROUP_3_ID,
+	GROUP_4_ID,
+	GROUP_5_ID,
+	GROUP_6_ID,
+	GROUP_7_ID,
+	GROUP_8_ID,
+	GROUP_9_ID,
+	GROUP_10_ID,
+	GROUP_11_ID,
+	GROUP_12_ID,
+	GROUP_13_ID,
+	GROUP_14_ID,
+	GROUP_15_ID,
+	GROUP_16_ID,
+	GROUP_17_ID,
+	GROUP_18_ID,
+	GROUP_19_ID,
+	GROUP_20_ID,
+	GROUP_21_ID,
+	GROUP_22_ID,
+	GROUP_23_ID,
+	GROUP_24_ID,
+	GROUP_25_ID,
+	GROUP_26_ID,
+	GROUP_27_ID,
+	GROUP_28_ID,
+	GROUP_29_ID,
+	GROUP_30_ID,
+	GROUP_31_ID,
+	GROUP_32_ID,
 #endif
 	LAYERS_ID,
 	LAYER_BEFORE_ID,
@@ -262,14 +285,38 @@ const char *SCALE_7_ID_STR = "7x";
 const char *SCALE_8_ID_STR = "8x";
 const char *SCALE_9_ID_STR = "9x";
 const char *SCALE_10_ID_STR = "10x";
-const char *GROUP_CHAIR_NORTH_ID_STR = "Chair (North)";
-const char *GROUP_CHAIR_EAST_ID_STR = "Chair (East)";
-const char *GROUP_CHAIR_SOUTH_ID_STR = "Chair (South)";
-const char *GROUP_CHAIR_WEST_ID_STR = "Chair (West)";
-const char *GROUP_BED_NORTH_ID_STR = "Bed (North)";
-const char *GROUP_BED_EAST_ID_STR = "Bed (East)";
-const char *GROUP_BED_SOUTH_ID_STR = "Bed (South)";
-const char *GROUP_BED_WEST_ID_STR = "Bed (West)";
+const char *GROUP_1_ID_STR = "1";
+const char *GROUP_2_ID_STR = "2";
+const char *GROUP_3_ID_STR = "3";
+const char *GROUP_4_ID_STR = "4";
+const char *GROUP_5_ID_STR = "5";
+const char *GROUP_6_ID_STR = "6";
+const char *GROUP_7_ID_STR = "7";
+const char *GROUP_8_ID_STR = "8";
+const char *GROUP_9_ID_STR = "9";
+const char *GROUP_10_ID_STR = "10";
+const char *GROUP_11_ID_STR = "11";
+const char *GROUP_12_ID_STR = "12";
+const char *GROUP_13_ID_STR = "13";
+const char *GROUP_14_ID_STR = "14";
+const char *GROUP_15_ID_STR = "15";
+const char *GROUP_16_ID_STR = "16";
+const char *GROUP_17_ID_STR = "17";
+const char *GROUP_18_ID_STR = "18";
+const char *GROUP_19_ID_STR = "19";
+const char *GROUP_20_ID_STR = "20";
+const char *GROUP_21_ID_STR = "21";
+const char *GROUP_22_ID_STR = "22";
+const char *GROUP_23_ID_STR = "23";
+const char *GROUP_24_ID_STR = "24";
+const char *GROUP_25_ID_STR = "25";
+const char *GROUP_26_ID_STR = "26";
+const char *GROUP_27_ID_STR = "27";
+const char *GROUP_28_ID_STR = "28";
+const char *GROUP_29_ID_STR = "29";
+const char *GROUP_30_ID_STR = "30";
+const char *GROUP_31_ID_STR = "31";
+const char *GROUP_32_ID_STR = "32";
 const char *HELP_QUICK_REFERENCE_ID_STR = "Quick Reference" HELP_QUICK_REFERENCE_TABS CTRL_H MAC_CTRL_H;
 
 ALLEGRO_MENU_INFO main_menu_info[] = {
@@ -327,16 +374,39 @@ ALLEGRO_MENU_INFO main_menu_info[] = {
 			ALLEGRO_END_OF_MENU,
 
 #ifdef SUPPORT_GROUPS
-	ALLEGRO_START_OF_MENU("Group Type", GROUP_TYPE_ID),
-		{ (const char *)GROUP_OBJECT_ID_STR, GROUP_OBJECT_ID, ALLEGRO_MENU_ITEM_CHECKBOX, NULL },
-		{ (const char *)GROUP_CHAIR_NORTH_ID_STR, GROUP_CHAIR_NORTH_ID, ALLEGRO_MENU_ITEM_CHECKBOX, NULL },
-		{ (const char *)GROUP_CHAIR_EAST_ID_STR, GROUP_CHAIR_EAST_ID, ALLEGRO_MENU_ITEM_CHECKBOX, NULL },
-		{ (const char *)GROUP_CHAIR_SOUTH_ID_STR, GROUP_CHAIR_SOUTH_ID, ALLEGRO_MENU_ITEM_CHECKBOX, NULL },
-		{ (const char *)GROUP_CHAIR_WEST_ID_STR, GROUP_CHAIR_WEST_ID, ALLEGRO_MENU_ITEM_CHECKBOX, NULL },
-		{ (const char *)GROUP_BED_NORTH_ID_STR, GROUP_BED_NORTH_ID, ALLEGRO_MENU_ITEM_CHECKBOX, NULL },
-		{ (const char *)GROUP_BED_EAST_ID_STR, GROUP_BED_EAST_ID, ALLEGRO_MENU_ITEM_CHECKBOX, NULL },
-		{ (const char *)GROUP_BED_SOUTH_ID_STR, GROUP_BED_SOUTH_ID, ALLEGRO_MENU_ITEM_CHECKBOX, NULL },
-		{ (const char *)GROUP_BED_WEST_ID_STR, GROUP_BED_WEST_ID, ALLEGRO_MENU_ITEM_CHECKBOX, NULL },
+	ALLEGRO_START_OF_MENU("Group", GROUP_TYPE_ID),
+		{ (const char *)GROUP_1_ID_STR, GROUP_1_ID, ALLEGRO_MENU_ITEM_CHECKBOX, NULL },
+		{ (const char *)GROUP_2_ID_STR, GROUP_2_ID, ALLEGRO_MENU_ITEM_CHECKBOX, NULL },
+		{ (const char *)GROUP_3_ID_STR, GROUP_3_ID, ALLEGRO_MENU_ITEM_CHECKBOX, NULL },
+		{ (const char *)GROUP_4_ID_STR, GROUP_4_ID, ALLEGRO_MENU_ITEM_CHECKBOX, NULL },
+		{ (const char *)GROUP_5_ID_STR, GROUP_5_ID, ALLEGRO_MENU_ITEM_CHECKBOX, NULL },
+		{ (const char *)GROUP_6_ID_STR, GROUP_6_ID, ALLEGRO_MENU_ITEM_CHECKBOX, NULL },
+		{ (const char *)GROUP_7_ID_STR, GROUP_7_ID, ALLEGRO_MENU_ITEM_CHECKBOX, NULL },
+		{ (const char *)GROUP_8_ID_STR, GROUP_8_ID, ALLEGRO_MENU_ITEM_CHECKBOX, NULL },
+		{ (const char *)GROUP_9_ID_STR, GROUP_9_ID, ALLEGRO_MENU_ITEM_CHECKBOX, NULL },
+		{ (const char *)GROUP_10_ID_STR, GROUP_10_ID, ALLEGRO_MENU_ITEM_CHECKBOX, NULL },
+		{ (const char *)GROUP_11_ID_STR, GROUP_11_ID, ALLEGRO_MENU_ITEM_CHECKBOX, NULL },
+		{ (const char *)GROUP_12_ID_STR, GROUP_12_ID, ALLEGRO_MENU_ITEM_CHECKBOX, NULL },
+		{ (const char *)GROUP_13_ID_STR, GROUP_13_ID, ALLEGRO_MENU_ITEM_CHECKBOX, NULL },
+		{ (const char *)GROUP_14_ID_STR, GROUP_14_ID, ALLEGRO_MENU_ITEM_CHECKBOX, NULL },
+		{ (const char *)GROUP_15_ID_STR, GROUP_15_ID, ALLEGRO_MENU_ITEM_CHECKBOX, NULL },
+		{ (const char *)GROUP_16_ID_STR, GROUP_16_ID, ALLEGRO_MENU_ITEM_CHECKBOX, NULL },
+		{ (const char *)GROUP_17_ID_STR, GROUP_17_ID, ALLEGRO_MENU_ITEM_CHECKBOX, NULL },
+		{ (const char *)GROUP_18_ID_STR, GROUP_18_ID, ALLEGRO_MENU_ITEM_CHECKBOX, NULL },
+		{ (const char *)GROUP_19_ID_STR, GROUP_19_ID, ALLEGRO_MENU_ITEM_CHECKBOX, NULL },
+		{ (const char *)GROUP_20_ID_STR, GROUP_20_ID, ALLEGRO_MENU_ITEM_CHECKBOX, NULL },
+		{ (const char *)GROUP_21_ID_STR, GROUP_21_ID, ALLEGRO_MENU_ITEM_CHECKBOX, NULL },
+		{ (const char *)GROUP_22_ID_STR, GROUP_22_ID, ALLEGRO_MENU_ITEM_CHECKBOX, NULL },
+		{ (const char *)GROUP_23_ID_STR, GROUP_23_ID, ALLEGRO_MENU_ITEM_CHECKBOX, NULL },
+		{ (const char *)GROUP_24_ID_STR, GROUP_24_ID, ALLEGRO_MENU_ITEM_CHECKBOX, NULL },
+		{ (const char *)GROUP_25_ID_STR, GROUP_25_ID, ALLEGRO_MENU_ITEM_CHECKBOX, NULL },
+		{ (const char *)GROUP_26_ID_STR, GROUP_26_ID, ALLEGRO_MENU_ITEM_CHECKBOX, NULL },
+		{ (const char *)GROUP_27_ID_STR, GROUP_27_ID, ALLEGRO_MENU_ITEM_CHECKBOX, NULL },
+		{ (const char *)GROUP_28_ID_STR, GROUP_28_ID, ALLEGRO_MENU_ITEM_CHECKBOX, NULL },
+		{ (const char *)GROUP_29_ID_STR, GROUP_29_ID, ALLEGRO_MENU_ITEM_CHECKBOX, NULL },
+		{ (const char *)GROUP_30_ID_STR, GROUP_30_ID, ALLEGRO_MENU_ITEM_CHECKBOX, NULL },
+		{ (const char *)GROUP_31_ID_STR, GROUP_31_ID, ALLEGRO_MENU_ITEM_CHECKBOX, NULL },
+		{ (const char *)GROUP_32_ID_STR, GROUP_32_ID, ALLEGRO_MENU_ITEM_CHECKBOX, NULL },
 		ALLEGRO_END_OF_MENU,
 #endif
 
@@ -381,6 +451,8 @@ int last_scale = -1;
 std::vector<bool> draw_solids;
 #ifdef SUPPORT_GROUPS
 std::vector<bool> draw_groups;
+#endif
+#ifdef SUPPORT_WALLS
 bool draw_walls;
 #endif
 uint64_t new_mouse_pos = -1;
@@ -1126,25 +1198,13 @@ static void levelDrawCallback(int ox, int oy, int dx, int dy, int w, int h, int 
 		A_Leveleditor::Group &g = groups[i];
 		if (draw_groups[g.layer] && g.layer == levelEditor->getCurrentLayer()) {
 			ALLEGRO_COLOR colour;
-			if (g.type == 0) {
-				colour = al_map_rgb(255, 0, 0);
-			}
-			else if (g.type == 1) {
-				colour = al_map_rgb(0, 255, 0);
-			}
-			else if (g.type == 2) {
-				colour = al_map_rgb(0, 0, 255);
-			}
-			else if (g.type == 3) {
-				colour = al_map_rgb(0, 255, 255);
-			}
-			else {
-				colour = al_map_rgb(255, 255, 0);
-			}
+			colour = al_map_rgb(0, 255, 0);
 			al_draw_rectangle(savedx + (g.x * General::tileSize * General::scale) - ox, savedy + (g.y * General::tileSize * General::scale) - oy, savedx + ((g.x + g.w) * General::tileSize * General::scale) - ox, savedy + ((g.y + g.h) * General::tileSize * General::scale) - oy, colour, 1.0f);
 		}
 	}
+#endif
 
+#ifdef SUPPORT_WALLS
 	if (draw_walls) {
 		std::vector<A_Leveleditor::Wall> &walls = levelEditor->getWalls();
 
@@ -2676,7 +2736,7 @@ int main(int argc, char **argv)
 #endif
 	}
 
-#ifdef SUPPORT_GROUPS
+#ifdef SUPPORT_WALLS
 	draw_walls = true;
 #endif
 
@@ -3184,35 +3244,104 @@ int main(int argc, char **argv)
 				}
 #ifdef SUPPORT_GROUPS
 				else if (
-						event.user.data1 == GROUP_OBJECT_ID ||
-						event.user.data1 == GROUP_CHAIR_NORTH_ID ||
-						event.user.data1 == GROUP_CHAIR_EAST_ID ||
-						event.user.data1 == GROUP_CHAIR_SOUTH_ID ||
-						event.user.data1 == GROUP_CHAIR_WEST_ID ||
-						event.user.data1 == GROUP_BED_NORTH_ID ||
-						event.user.data1 == GROUP_BED_EAST_ID ||
-						event.user.data1 == GROUP_BED_SOUTH_ID ||
-						event.user.data1 == GROUP_BED_WEST_ID
+						event.user.data1 == GROUP_1_ID ||
+						event.user.data1 == GROUP_2_ID ||
+						event.user.data1 == GROUP_3_ID ||
+						event.user.data1 == GROUP_4_ID ||
+						event.user.data1 == GROUP_5_ID ||
+						event.user.data1 == GROUP_6_ID ||
+						event.user.data1 == GROUP_7_ID ||
+						event.user.data1 == GROUP_8_ID ||
+						event.user.data1 == GROUP_9_ID ||
+						event.user.data1 == GROUP_10_ID ||
+						event.user.data1 == GROUP_11_ID ||
+						event.user.data1 == GROUP_12_ID ||
+						event.user.data1 == GROUP_13_ID ||
+						event.user.data1 == GROUP_14_ID ||
+						event.user.data1 == GROUP_15_ID ||
+						event.user.data1 == GROUP_16_ID ||
+						event.user.data1 == GROUP_17_ID ||
+						event.user.data1 == GROUP_18_ID ||
+						event.user.data1 == GROUP_19_ID ||
+						event.user.data1 == GROUP_20_ID ||
+						event.user.data1 == GROUP_21_ID ||
+						event.user.data1 == GROUP_22_ID ||
+						event.user.data1 == GROUP_23_ID ||
+						event.user.data1 == GROUP_24_ID ||
+						event.user.data1 == GROUP_25_ID ||
+						event.user.data1 == GROUP_26_ID ||
+						event.user.data1 == GROUP_27_ID ||
+						event.user.data1 == GROUP_28_ID ||
+						event.user.data1 == GROUP_29_ID ||
+						event.user.data1 == GROUP_30_ID ||
+						event.user.data1 == GROUP_31_ID ||
+						event.user.data1 == GROUP_32_ID
 					) {
-					bool object_checked = al_get_menu_item_flags(menu, GROUP_OBJECT_ID) & ALLEGRO_MENU_ITEM_CHECKED;
-					bool chair_north_checked = al_get_menu_item_flags(menu, GROUP_CHAIR_NORTH_ID) & ALLEGRO_MENU_ITEM_CHECKED;
-					bool chair_east_checked = al_get_menu_item_flags(menu, GROUP_CHAIR_EAST_ID) & ALLEGRO_MENU_ITEM_CHECKED;
-					bool chair_south_checked = al_get_menu_item_flags(menu, GROUP_CHAIR_SOUTH_ID) & ALLEGRO_MENU_ITEM_CHECKED;
-					bool chair_west_checked = al_get_menu_item_flags(menu, GROUP_CHAIR_WEST_ID) & ALLEGRO_MENU_ITEM_CHECKED;
-					bool bed_north_checked = al_get_menu_item_flags(menu, GROUP_BED_NORTH_ID) & ALLEGRO_MENU_ITEM_CHECKED;
-					bool bed_east_checked = al_get_menu_item_flags(menu, GROUP_BED_EAST_ID) & ALLEGRO_MENU_ITEM_CHECKED;
-					bool bed_south_checked = al_get_menu_item_flags(menu, GROUP_BED_SOUTH_ID) & ALLEGRO_MENU_ITEM_CHECKED;
-					bool bed_west_checked = al_get_menu_item_flags(menu, GROUP_BED_WEST_ID) & ALLEGRO_MENU_ITEM_CHECKED;
+					bool checked_1 = al_get_menu_item_flags(menu, GROUP_1_ID) & ALLEGRO_MENU_ITEM_CHECKED;
+					bool checked_2 = al_get_menu_item_flags(menu, GROUP_2_ID) & ALLEGRO_MENU_ITEM_CHECKED;
+					bool checked_3 = al_get_menu_item_flags(menu, GROUP_3_ID) & ALLEGRO_MENU_ITEM_CHECKED;
+					bool checked_4 = al_get_menu_item_flags(menu, GROUP_4_ID) & ALLEGRO_MENU_ITEM_CHECKED;
+					bool checked_5 = al_get_menu_item_flags(menu, GROUP_5_ID) & ALLEGRO_MENU_ITEM_CHECKED;
+					bool checked_6 = al_get_menu_item_flags(menu, GROUP_6_ID) & ALLEGRO_MENU_ITEM_CHECKED;
+					bool checked_7 = al_get_menu_item_flags(menu, GROUP_7_ID) & ALLEGRO_MENU_ITEM_CHECKED;
+					bool checked_8 = al_get_menu_item_flags(menu, GROUP_8_ID) & ALLEGRO_MENU_ITEM_CHECKED;
+					bool checked_9 = al_get_menu_item_flags(menu, GROUP_9_ID) & ALLEGRO_MENU_ITEM_CHECKED;
+					bool checked_10 = al_get_menu_item_flags(menu, GROUP_10_ID) & ALLEGRO_MENU_ITEM_CHECKED;
+					bool checked_11 = al_get_menu_item_flags(menu, GROUP_11_ID) & ALLEGRO_MENU_ITEM_CHECKED;
+					bool checked_12 = al_get_menu_item_flags(menu, GROUP_12_ID) & ALLEGRO_MENU_ITEM_CHECKED;
+					bool checked_13 = al_get_menu_item_flags(menu, GROUP_13_ID) & ALLEGRO_MENU_ITEM_CHECKED;
+					bool checked_14 = al_get_menu_item_flags(menu, GROUP_14_ID) & ALLEGRO_MENU_ITEM_CHECKED;
+					bool checked_15 = al_get_menu_item_flags(menu, GROUP_15_ID) & ALLEGRO_MENU_ITEM_CHECKED;
+					bool checked_16 = al_get_menu_item_flags(menu, GROUP_16_ID) & ALLEGRO_MENU_ITEM_CHECKED;
+					bool checked_17 = al_get_menu_item_flags(menu, GROUP_17_ID) & ALLEGRO_MENU_ITEM_CHECKED;
+					bool checked_18 = al_get_menu_item_flags(menu, GROUP_18_ID) & ALLEGRO_MENU_ITEM_CHECKED;
+					bool checked_19 = al_get_menu_item_flags(menu, GROUP_19_ID) & ALLEGRO_MENU_ITEM_CHECKED;
+					bool checked_20 = al_get_menu_item_flags(menu, GROUP_20_ID) & ALLEGRO_MENU_ITEM_CHECKED;
+					bool checked_21 = al_get_menu_item_flags(menu, GROUP_21_ID) & ALLEGRO_MENU_ITEM_CHECKED;
+					bool checked_22 = al_get_menu_item_flags(menu, GROUP_22_ID) & ALLEGRO_MENU_ITEM_CHECKED;
+					bool checked_23 = al_get_menu_item_flags(menu, GROUP_23_ID) & ALLEGRO_MENU_ITEM_CHECKED;
+					bool checked_24 = al_get_menu_item_flags(menu, GROUP_24_ID) & ALLEGRO_MENU_ITEM_CHECKED;
+					bool checked_25 = al_get_menu_item_flags(menu, GROUP_25_ID) & ALLEGRO_MENU_ITEM_CHECKED;
+					bool checked_26 = al_get_menu_item_flags(menu, GROUP_26_ID) & ALLEGRO_MENU_ITEM_CHECKED;
+					bool checked_27 = al_get_menu_item_flags(menu, GROUP_27_ID) & ALLEGRO_MENU_ITEM_CHECKED;
+					bool checked_28 = al_get_menu_item_flags(menu, GROUP_28_ID) & ALLEGRO_MENU_ITEM_CHECKED;
+					bool checked_29 = al_get_menu_item_flags(menu, GROUP_29_ID) & ALLEGRO_MENU_ITEM_CHECKED;
+					bool checked_30 = al_get_menu_item_flags(menu, GROUP_30_ID) & ALLEGRO_MENU_ITEM_CHECKED;
+					bool checked_31 = al_get_menu_item_flags(menu, GROUP_31_ID) & ALLEGRO_MENU_ITEM_CHECKED;
+					bool checked_32 = al_get_menu_item_flags(menu, GROUP_32_ID) & ALLEGRO_MENU_ITEM_CHECKED;
 					int group_type = 0;
-					if (object_checked) group_type |= 1;
-					if (chair_north_checked) group_type |= (1 << 1);
-					if (chair_east_checked) group_type |= (1 << 2);
-					if (chair_south_checked) group_type |= (1 << 3);
-					if (chair_west_checked) group_type |= (1 << 4);
-					if (bed_north_checked) group_type |= (1 << 5);
-					if (bed_east_checked) group_type |= (1 << 6);
-					if (bed_south_checked) group_type |= (1 << 7);
-					if (bed_west_checked) group_type |= (1 << 8);
+					if (checked_1) group_type |= 1;
+					if (checked_2) group_type |= (1 << 1);
+					if (checked_3) group_type |= (1 << 2);
+					if (checked_4) group_type |= (1 << 3);
+					if (checked_5) group_type |= (1 << 4);
+					if (checked_6) group_type |= (1 << 5);
+					if (checked_7) group_type |= (1 << 6);
+					if (checked_8) group_type |= (1 << 7);
+					if (checked_9) group_type |= (1 << 8);
+					if (checked_10) group_type |= (1 << 9);
+					if (checked_11) group_type |= (1 << 10);
+					if (checked_12) group_type |= (1 << 11);
+					if (checked_13) group_type |= (1 << 12);
+					if (checked_14) group_type |= (1 << 13);
+					if (checked_15) group_type |= (1 << 14);
+					if (checked_16) group_type |= (1 << 15);
+					if (checked_17) group_type |= (1 << 16);
+					if (checked_18) group_type |= (1 << 17);
+					if (checked_19) group_type |= (1 << 18);
+					if (checked_20) group_type |= (1 << 19);
+					if (checked_21) group_type |= (1 << 20);
+					if (checked_22) group_type |= (1 << 21);
+					if (checked_23) group_type |= (1 << 22);
+					if (checked_24) group_type |= (1 << 23);
+					if (checked_25) group_type |= (1 << 24);
+					if (checked_26) group_type |= (1 << 25);
+					if (checked_27) group_type |= (1 << 26);
+					if (checked_28) group_type |= (1 << 27);
+					if (checked_29) group_type |= (1 << 28);
+					if (checked_30) group_type |= (1 << 29);
+					if (checked_31) group_type |= (1 << 30);
+					if (checked_32) group_type |= (1 << 31);
 					levelEditor->set_group_type(group_type);
 				}
 #endif
@@ -3299,10 +3428,12 @@ int main(int argc, char **argv)
 				if (event.type == ALLEGRO_EVENT_KEY_DOWN && (event.keyboard.keycode == ALLEGRO_KEY_ENTER || event.keyboard.keycode == ALLEGRO_KEY_PAD_ENTER)) {
 					screenshot();
 				}
-#ifdef SUPPORT_GROUPS
+#ifdef SUPPORT_WALLS
 				else if (event.type == ALLEGRO_EVENT_KEY_DOWN && event.keyboard.keycode == ALLEGRO_KEY_T && (tgui::isKeyDown(ALLEGRO_KEY_LSHIFT) || tgui::isKeyDown(ALLEGRO_KEY_RSHIFT))) {
 					draw_walls = !draw_walls;
 				}
+#endif
+#ifdef SUPPORT_GROUPS
 				else if (event.type == ALLEGRO_EVENT_KEY_DOWN && event.keyboard.keycode == ALLEGRO_KEY_T && (tgui::isKeyDown(ALLEGRO_KEY_ALT) || tgui::isKeyDown(ALLEGRO_KEY_ALTGR))) {
 					int layer = levelEditor->getCurrentLayer();
 					draw_groups[layer] = !draw_groups[layer];

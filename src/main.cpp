@@ -3687,7 +3687,20 @@ int main(int argc, char **argv)
 					ss << "(Non-contiguous) ";
 				}
 			}
-			ss << "Tool: " << levelEditor->getTool() << "     Size: " << levelEditor->getWidth() << "x" << levelEditor->getHeight() << "     Level: " << (levelX/General::scale) << "," << (levelY/General::scale) << "     Pixel: " << (mouse_x/General::scale) << "," << (mouse_y/General::scale) << "       Tile: " << tileX << "," << tileY << ",#" <<  tileNumber;
+			ss << "Tool: " << levelEditor->getTool() << "     Size: " << levelEditor->getWidth() << "x" << levelEditor->getHeight() << "     Level: " << (levelX/General::scale) << "," << (levelY/General::scale) << "     Pixel: " << (mouse_x/General::scale) << "," << (mouse_y/General::scale) << "     Tile: " << tileX << "," << tileY << ",#" <<  tileNumber;
+
+			std::vector<A_Leveleditor::Group> groups = levelEditor->getGroups();
+			int mx1, mx2, my1, my2;
+			levelEditor->get_marquee(&mx1, &my1, &mx2, &my2);
+			for (size_t i = 0; i < groups.size(); i++) {
+				if (groups[i].layer == levelEditor->getCurrentLayer() && groups[i].x == mx1 && groups[i].y == my1 && groups[i].w == (mx2-mx1) && groups[i].h == (my2-my1)) {
+					char buf[100];
+					snprintf(buf, 100, "0x%08x", groups[i].type);
+					ss << "     Group: " << std::string(buf);
+					break;
+				}
+			}
+
 			statusLabel->setText(ss.str());
 
 #ifdef ALLEGRO_UNIX

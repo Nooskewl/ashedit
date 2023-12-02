@@ -449,7 +449,7 @@ int save_tile_size = -1;
 int last_scale = -1;
 
 std::vector<bool> draw_solids;
-#ifdef SUPPORT_GROUPS
+#ifdef SUPPORT_GROUPS_XXX
 std::vector<bool> draw_groups;
 #endif
 #ifdef SUPPORT_WALLS
@@ -1196,11 +1196,11 @@ static void levelDrawCallback(int ox, int oy, int dx, int dy, int w, int h, int 
 
 	for (size_t i = 0; i < groups.size(); i++) {
 		A_Leveleditor::Group &g = groups[i];
-		if (draw_groups[g.layer] && g.layer == levelEditor->getCurrentLayer()) {
+		//if (draw_groups[g.layer] && g.layer == levelEditor->getCurrentLayer()) {
 			ALLEGRO_COLOR colour;
 			colour = al_map_rgb(0, 255, 255);
 			al_draw_rectangle(savedx + (g.x * General::tileSize * General::scale) - ox, savedy + (g.y * General::tileSize * General::scale) - oy, savedx + ((g.x + g.w) * General::tileSize * General::scale) - ox, savedy + ((g.y + g.h) * General::tileSize * General::scale) - oy, colour, 1.0f);
-		}
+		//}
 	}
 #endif
 
@@ -1661,11 +1661,12 @@ static void add_help()
 #ifdef SUPPORT_GROUPS
 		"G\n"
 		HELP_ALT "+G\n"
+		"\n"
 #endif
 		"T\n"
 		HELP_CTRL "+T\n"
 #ifdef SUPPORT_GROUPS
-		HELP_ALT "+T\n"
+		//HELP_ALT "+T\n"
 #endif
 		"\n"
 		"F1→F12\n"
@@ -1715,13 +1716,14 @@ static void add_help()
 		"Paste\n"
 		"\n"
 #ifdef SUPPORT_GROUPS
-		"Add a group (using layer and marquee)\n"
-		"Delete a group (using layer and marquee)\n"
+		"Add a group (using marquee)\n"
+		"Delete a group (using marquee)\n"
+		"\n"
 #endif
 		"Toggle current layer drawing\n"
 		"Toggle current layer solids drawing\n"
 #ifdef SUPPORT_GROUPS
-		"Toggle current layer groups drawing\n"
+		//"Toggle current layer groups drawing\n"
 #endif
 		"\n"
 		"Jump to layer/Toggle layer visibility\n"
@@ -1924,12 +1926,12 @@ void new_map_real(int new_level_w, int new_level_h)
 	setTitle();
 	draw_solids.clear();
 #ifdef SUPPORT_GROUPS
-	draw_groups.clear();
+	//draw_groups.clear();
 #endif
 	for (int i = 0; i < levelEditor->getNumLayers(); i++) {
 		draw_solids.push_back(true);
 #ifdef SUPPORT_GROUPS
-		draw_groups.push_back(true);
+		//draw_groups.push_back(true);
 #endif
 	}
 	
@@ -1955,12 +1957,12 @@ void do_open()
 			setTitle();
 			draw_solids.clear();
 #ifdef SUPPORT_GROUPS
-			draw_groups.clear();
+			//draw_groups.clear();
 #endif
 			for (int i = 0; i < levelEditor->getNumLayers(); i++) {
 				draw_solids.push_back(true);
 #ifdef SUPPORT_GROUPS
-				draw_groups.push_back(true);
+				//draw_groups.push_back(true);
 #endif
 			}
 
@@ -2732,7 +2734,7 @@ int main(int argc, char **argv)
 	for (int i = 0; i < levelEditor->getNumLayers(); i++) {
 		draw_solids.push_back(true);
 #ifdef SUPPORT_GROUPS
-		draw_groups.push_back(true);
+		//draw_groups.push_back(true);
 #endif
 	}
 
@@ -2998,12 +3000,12 @@ int main(int argc, char **argv)
 							setTitle();
 							draw_solids.clear();
 #ifdef SUPPORT_GROUPS
-							draw_groups.clear();
+							//draw_groups.clear();
 #endif
 							for (int i = 0; i < levelEditor->getNumLayers(); i++) {
 								draw_solids.push_back(true);
 #ifdef SUPPORT_GROUPS
-								draw_groups.push_back(true);
+								//draw_groups.push_back(true);
 #endif
 							}
 
@@ -3433,7 +3435,7 @@ int main(int argc, char **argv)
 					draw_walls = !draw_walls;
 				}
 #endif
-#ifdef SUPPORT_GROUPS
+#ifdef SUPPORT_GROUPS_XXX
 				else if (event.type == ALLEGRO_EVENT_KEY_DOWN && event.keyboard.keycode == ALLEGRO_KEY_T && (tgui::isKeyDown(ALLEGRO_KEY_ALT) || tgui::isKeyDown(ALLEGRO_KEY_ALTGR))) {
 					int layer = levelEditor->getCurrentLayer();
 					draw_groups[layer] = !draw_groups[layer];
@@ -3693,7 +3695,7 @@ int main(int argc, char **argv)
 			int mx1, mx2, my1, my2;
 			levelEditor->get_marquee(&mx1, &my1, &mx2, &my2);
 			for (size_t i = 0; i < groups.size(); i++) {
-				if (groups[i].layer == levelEditor->getCurrentLayer() && groups[i].x == mx1 && groups[i].y == my1 && groups[i].w == (mx2-mx1) && groups[i].h == (my2-my1)) {
+				if (groups[i].x == mx1 && groups[i].y == my1 && groups[i].w == (mx2-mx1) && groups[i].h == (my2-my1)) {
 					char buf[100];
 					snprintf(buf, 100, "0x%08x", groups[i].type);
 					ss << "     Group: " << std::string(buf);

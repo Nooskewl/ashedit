@@ -40,7 +40,7 @@ extern ALLEGRO_EVENT_QUEUE *queue;
 extern std::vector<ALLEGRO_BITMAP *> tileSheets;
 extern std::vector<bool> draw_solids;
 #ifdef SUPPORT_GROUPS
-extern std::vector<bool> draw_groups;
+//extern std::vector<bool> draw_groups;
 #endif
 extern ALLEGRO_MOUSE_CURSOR *mouse_cursor;
 void screenshot();
@@ -2115,7 +2115,8 @@ public:
 
 #ifdef SUPPORT_GROUPS
 	struct Group {
-		int type, layer, x, y, w, h;
+		int layer, x, y, w, h;
+		unsigned int type;
 	};
 #endif
 
@@ -2372,7 +2373,7 @@ public:
 
 		visible.erase(visible.begin() + i);
 
-#ifdef SUPPORT_GROUPS
+#ifdef SUPPORT_GROUPS_XXX
 		std::vector<Group>::iterator it;
 		for (it = groups.begin(); it != groups.end();) {
 			Group &g = *it;
@@ -2470,7 +2471,7 @@ public:
 			it = visible.begin() + i;
 		visible.insert(it, true);
 
-#ifdef SUPPORT_GROUPS
+#ifdef SUPPORT_GROUPS_XXX
 		if (i >= 0) {
 			for (size_t j = 0; j < groups.size(); j++) {
 				Group &g = groups[j];
@@ -3213,7 +3214,8 @@ public:
 				if (tgui::isKeyDown(ALLEGRO_KEY_ALT) || tgui::isKeyDown(ALLEGRO_KEY_ALTGR)) {
 					Group g = { group_type, layer, marquee_x1, marquee_y1, marquee_x2 - marquee_x1 + 1, marquee_y2 - marquee_y1 + 1};
 					for (size_t i = 0; i < groups.size(); i++) {
-						if (groups[i].layer == g.layer && groups[i].x == g.x && groups[i].y == g.y && groups[i].w == g.w && groups[i].h == g.h) {
+						//if (groups[i].layer == g.layer && groups[i].x == g.x && groups[i].y == g.y && groups[i].w == g.w && groups[i].h == g.h) {
+						if (groups[i].x == g.x && groups[i].y == g.y && groups[i].w == g.w && groups[i].h == g.h) {
 							groups.erase(groups.begin() + i);
 
 							break;
@@ -3225,7 +3227,8 @@ public:
 						bool found = false;
 						Group g = { group_type, layer, marquee_x1, marquee_y1, marquee_x2 - marquee_x1 + 1, marquee_y2 - marquee_y1 + 1};
 						for (size_t i = 0; i < groups.size(); i++) {
-							if (groups[i].layer == g.layer && groups[i].x == g.x && groups[i].y == g.y && groups[i].w == g.w && groups[i].h == g.h) {
+							//if (groups[i].layer == g.layer && groups[i].x == g.x && groups[i].y == g.y && groups[i].w == g.w && groups[i].h == g.h) {
+							if (groups[i].x == g.x && groups[i].y == g.y && groups[i].w == g.w && groups[i].h == g.h) {
 								found = true;
 								groups[i].type = group_type;
 								break;
@@ -3448,8 +3451,8 @@ public:
 		changed_undoes.pop_back();
 
 #ifdef SUPPORT_GROUPS
-		draw_groups = draw_groups_undoes.back();
-		draw_groups_undoes.pop_back();
+		//draw_groups = draw_groups_undoes.back();
+		//draw_groups_undoes.pop_back();
 #endif
 
 		layer = layer_undoes.back();
@@ -3566,8 +3569,8 @@ public:
 		changed_redoes.pop_back();
 		
 #ifdef SUPPORT_GROUPS
-		draw_groups = draw_groups_redoes.back();
-		draw_groups_redoes.pop_back();
+		//draw_groups = draw_groups_redoes.back();
+		//draw_groups_redoes.pop_back();
 #endif
 
 		layer = layer_redoes.back();
@@ -3697,7 +3700,7 @@ public:
 			changed_undoes.pop_front();
 		}
 
-#ifdef SUPPORT_GROUPS
+#ifdef SUPPORT_GROUPS_XXX
 		draw_groups_undoes.push_back(draw_groups);
 		if (draw_groups_undoes.size() > MAX_UNDO) {
 			draw_groups_undoes.pop_front();
@@ -3794,7 +3797,7 @@ public:
 			changed_redoes.pop_front();
 		}
 
-#ifdef SUPPORT_GROUPS
+#ifdef SUPPORT_GROUPS_XXX
 		draw_groups_redoes.push_back(draw_groups);
 		if (draw_groups_redoes.size() > MAX_UNDO) {
 			draw_groups_redoes.pop_front();
@@ -3846,7 +3849,7 @@ public:
 		
 		changed_undoes.clear();
 
-#ifdef SUPPORT_GROUPS
+#ifdef SUPPORT_GROUPS_XXX
 		draw_groups_undoes.clear();
 #endif
 
@@ -3878,7 +3881,7 @@ public:
 		
 		changed_redoes.clear();
 
-#ifdef SUPPORT_GROUPS
+#ifdef SUPPORT_GROUPS_XXX
 		draw_groups_redoes.clear();
 #endif
 
@@ -4982,7 +4985,7 @@ public:
 			int b3 = al_fgetc(f);
 			int b4 = al_fgetc(f);
 
-			if (b1 != 'W' || b2 != 'M' || b3 != '2' || b4 != '!') {
+			if (b1 != 'W' || b2 != 'M' || (b3 != '2' && b3 != '3') || b4 != '!') {
 				LOAD_ERROR("Not an AshEdit map!")
 			}
 
@@ -5059,6 +5062,20 @@ public:
 				}
 			}
 
+			if (b3 == '3') {
+				int num_groups = al_fread16le(f);
+
+				for (int i = 0; i < num_groups; i++) {
+					Group g;
+					g.layer = 0;
+					g.type = al_fread32le(f);
+					g.x = al_fread16le(f);
+					g.y = al_fread16le(f);
+					g.w = al_fread16le(f);
+					g.h = al_fread16le(f);
+					groups.push_back(g);
+				}
+			}
 		}
 		else if (level_type == MO2) {
 			int w = al_fread32le(f);
@@ -5182,7 +5199,7 @@ public:
 				}
 			}
 
-#ifdef SUPPORT_GROUPS
+#ifdef SUPPORT_GROUPS_XXX
 			int num_groups = al_fread16le(f);
 
 			if (num_groups < 0) {
@@ -5361,7 +5378,7 @@ public:
 
 			al_fputc(f, 'W');
 			al_fputc(f, 'M');
-			al_fputc(f, '2');
+			al_fputc(f, '3');
 			al_fputc(f, '!');
 
 			al_fwrite16le(f, (int16_t)tiles[0].size()); // width
@@ -5411,6 +5428,17 @@ public:
 						}
 					}
 				}
+			}
+
+			al_fwrite16le(f, groups.size());
+
+			for (size_t i = 0; i < groups.size(); i++) {
+				Group &g = groups[i];
+				al_fwrite32le(f, g.type);
+				al_fwrite16le(f, g.x);
+				al_fwrite16le(f, g.y);
+				al_fwrite16le(f, g.w);
+				al_fwrite16le(f, g.h);
 			}
 
 			al_fclose(f);
@@ -5516,7 +5544,7 @@ public:
 				}
 			}
 
-#ifdef SUPPORT_GROUPS
+#ifdef SUPPORT_GROUPS_XXX
 			al_fwrite16le(f, (int16_t)groups.size());
 
 			for (size_t i = 0; i < groups.size(); i++) {
@@ -5721,10 +5749,10 @@ public:
 	void clear_undoes_redoes()
 	{
 #ifdef SUPPORT_GROUPS
-		groups.clear();
+		//groups.clear();
 #endif
 #ifdef SUPPORT_WALLS
-		walls.clear();
+		//walls.clear();
 #endif
 
 		empty_undoes();
@@ -6337,7 +6365,7 @@ protected:
 	std::deque<bool> changed_undoes;
 	std::deque<bool> changed_redoes;
 
-#ifdef SUPPORT_GROUPS
+#ifdef SUPPORT_GROUPS_XXX
 	std::deque< std::vector<bool> > draw_groups_undoes;
 	std::deque< std::vector<bool> > draw_groups_redoes;
 #endif

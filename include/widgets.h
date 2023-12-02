@@ -3221,17 +3221,19 @@ public:
 					}
 				}
 				else {
-					bool found = false;
-					Group g = { group_type, layer, marquee_x1, marquee_y1, marquee_x2 - marquee_x1 + 1, marquee_y2 - marquee_y1 + 1};
-					for (size_t i = 0; i < groups.size(); i++) {
-						if (groups[i].layer == g.layer && groups[i].x == g.x && groups[i].y == g.y && groups[i].w == g.w && groups[i].h == g.h) {
-							found = true;
-							groups[i].type = group_type;
-							break;
+					if (group_type != 0) {
+						bool found = false;
+						Group g = { group_type, layer, marquee_x1, marquee_y1, marquee_x2 - marquee_x1 + 1, marquee_y2 - marquee_y1 + 1};
+						for (size_t i = 0; i < groups.size(); i++) {
+							if (groups[i].layer == g.layer && groups[i].x == g.x && groups[i].y == g.y && groups[i].w == g.w && groups[i].h == g.h) {
+								found = true;
+								groups[i].type = group_type;
+								break;
+							}
 						}
-					}
-					if (!found) {
-						groups.push_back(g);
+						if (!found) {
+							groups.push_back(g);
+						}
 					}
 				}
 				changed = true;

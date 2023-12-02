@@ -2115,8 +2115,8 @@ public:
 
 #ifdef SUPPORT_GROUPS
 	struct Group {
-		int layer, x, y, w, h;
 		unsigned int type;
+		int layer, x, y, w, h;
 	};
 #endif
 

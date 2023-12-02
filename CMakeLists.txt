@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.8.12)
 project(AshEdit)
 
-option(SUPPORT_GROUPS "Support for groups (from MO3)" off)
+option(SUPPORT_GROUPS "Support for groups (from MO3)" on)
 option(USE_STATIC_LIBRARIES "Build with static libraries" on)
 option(DEBUG "Build for debugging" off)
 option(DUMP "Build as a dumping tool (for developers)" off)

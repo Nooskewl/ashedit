@@ -8,13 +8,6 @@ The levels it produces are in a very simple binary format that is easy to
 load. See FORMAT.txt.
 
 
-License
--------
-
-The license in LICENSE.txt does not cover the icons. Those are not to be
-reused.
-
-
 Using
 -----
 
@@ -28,24 +21,9 @@ File type is determined by filename if you run with
 area	This is the full filename of Crystal Picnic maps
 .area	This extension is for Monster RPG 2 maps
 
-Everything else is loaded in the new Wedge 2 format.
+Everything else is loaded in the new Wedge 3 format.
 
 Refer to the online help for how to use the program.
-
-
-Building
---------
-
-AshEdit requires tgui2 to build. Allegro 5.2 is also needed.
-
-Set CMake variables USER_INCLUDE_PATH and USER_LIBRARY_PATH to where you've
-put Allegro and TGUI2 if necessary.
-
-	mkdir build
-	cd build
-	cmake ..
-	msbuild /p:Configuration=Release AshEdit.sln # or use make
-	<run AshEdit.exe>
 
 On Windows it loads arial.ttf from C:\Windows\Fonts. On Linux it
 looks in the working directory for font.ttf.

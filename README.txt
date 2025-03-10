@@ -27,3 +27,5 @@ Refer to the online help for how to use the program.
 
 On Windows it loads arial.ttf from C:\Windows\Fonts. On Linux it
 looks in the working directory for font.ttf.
+
+Visit https://illnorth.ca for updates...

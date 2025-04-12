@@ -1633,7 +1633,7 @@ static void add_help()
 	disable_quickref_menu_item();
 
 	int qr_w;
-	int qr_h = 52*al_get_font_line_height(help_font);
+	int qr_h = 51*al_get_font_line_height(help_font);
 
 	quickRefSplitter = new A_Splitter(A_Splitter::SPLIT_HORIZONTAL);
 	quickRefBottomSplitter = new A_Splitter(A_Splitter::SPLIT_VERTICAL);

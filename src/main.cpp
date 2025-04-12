@@ -1633,7 +1633,7 @@ static void add_help()
 	disable_quickref_menu_item();
 
 	int qr_w;
-	int qr_h = 50*al_get_font_line_height(help_font);
+	int qr_h = 52*al_get_font_line_height(help_font);
 
 	quickRefSplitter = new A_Splitter(A_Splitter::SPLIT_HORIZONTAL);
 	quickRefBottomSplitter = new A_Splitter(A_Splitter::SPLIT_VERTICAL);
@@ -2401,12 +2401,12 @@ int main(int argc, char **argv)
 
 #ifdef ALLEGRO_GTK_TOPLEVEL
 	/* ALLEGRO_GTK_TOPLEVEL is necessary for menus with GTK. */
-	al_set_new_display_flags(ALLEGRO_RESIZABLE | ALLEGRO_GTK_TOPLEVEL | ALLEGRO_GENERATE_EXPOSE_EVENTS);
+	al_set_new_display_flags(LLEGRO_RESIZABLE | ALLEGRO_GTK_TOPLEVEL | ALLEGRO_GENERATE_EXPOSE_EVENTS);
 #elif defined ALLEGRO_MACOSX
 	int max_flag = window_maximized ? ALLEGRO_MAXIMIZED : 0;
 	al_set_new_display_flags(ALLEGRO_RESIZABLE | ALLEGRO_GENERATE_EXPOSE_EVENTS | max_flag);
 #else
-	al_set_new_display_flags(ALLEGRO_RESIZABLE | ALLEGRO_GENERATE_EXPOSE_EVENTS);
+	al_set_new_display_flags(ALLEGRO_OPENGL | ALLEGRO_RESIZABLE | ALLEGRO_GENERATE_EXPOSE_EVENTS);
 #endif
 
 	if (window_maximized) {

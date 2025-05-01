@@ -46,6 +46,9 @@ Listed below is the data in the maps in order it comes in the file.
 These areas support 65536x65536 tile maps with maximum sheet size of 256x256
 tiles (tiles can be any size.)
 
+Wedge 2 maps are the same as Wedge 3 maps, except the signature is "WM2!",
+and there are no groups at the end.
+
 -----
 
 For Monster RPG 3:

@@ -3689,7 +3689,20 @@ int main(int argc, char **argv)
 					ss << "(Non-contiguous) ";
 				}
 			}
-			ss << "Tool: " << levelEditor->getTool() << "     Size: " << levelEditor->getWidth() << "x" << levelEditor->getHeight() << "     Level: " << (levelX/General::scale) << "," << (levelY/General::scale) << "     Pixel: " << (mouse_x/General::scale) << "," << (mouse_y/General::scale) << "     Tile: " << tileX << "," << tileY << ",#" <<  tileNumber;
+			std::string mover_text  = "";
+			if (levelEditor->getToolNum() == A_Leveleditor::TOOL_MOVER) {
+				int mover_src, mover_dest;
+				levelEditor->get_mover_layers(mover_src, mover_dest);
+				char buf[1000];
+				if (mover_dest == -1) {
+					snprintf(buf, 1000, " (From: %d To: PLEASE SELECT)", mover_src);
+				}
+				else {
+					snprintf(buf, 1000, " (From: %d To: %d)", mover_src, mover_dest);
+				}
+				mover_text = buf;
+			}
+			ss << "Tool: " << levelEditor->getTool() << mover_text << "     Size: " << levelEditor->getWidth() << "x" << levelEditor->getHeight() << "     Level: " << (levelX/General::scale) << "," << (levelY/General::scale) << "     Pixel: " << (mouse_x/General::scale) << "," << (mouse_y/General::scale) << "     Tile: " << tileX << "," << tileY << ",#" <<  tileNumber;
 
 			std::vector<A_Leveleditor::Group> groups = levelEditor->getGroups();
 			int mx1, mx2, my1, my2;

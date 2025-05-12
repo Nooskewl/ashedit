@@ -2078,7 +2078,8 @@ extern A_Tileselector *tileSelector;
 
 extern A_Combobox *layerCombo, *sheetCombo;
 
-class A_Leveleditor : public A_Canvas {
+class A_Leveleditor : public A_Canvas
+{
 public:
 	static const int TOOL_PENCIL = 0;
 	static const int TOOL_CLEAR = 1;
@@ -5923,6 +5924,12 @@ public:
 #endif
 	{
 		new_level();
+	}
+
+	void get_mover_layers(int &src, int &dest)
+	{
+		src = mover_src_layer;
+		dest = mover_dest_layer;
 	}
 
 	~A_Leveleditor(void) {
